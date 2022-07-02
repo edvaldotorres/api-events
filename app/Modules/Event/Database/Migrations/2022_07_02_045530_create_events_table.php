@@ -17,7 +17,7 @@ class CreateEventsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->timestamp('event_time');
+            $table->dateTime('event_time');
             $table->string('email_notification', 50);
             $table->boolean('sent')->comment('0 = not sent, 1 = sent')->nullable();
             $table->time('sent_time')->nullable();
