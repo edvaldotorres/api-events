@@ -20,7 +20,7 @@ class CreateEventsTable extends Migration
             $table->dateTime('event_time');
             $table->string('email_notification', 50);
             $table->boolean('sent')->comment('0 = not sent, 1 = sent')->nullable();
-            $table->time('sent_time')->nullable();
+            $table->dateTime('sent_time')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
