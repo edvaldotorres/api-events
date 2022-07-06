@@ -2,6 +2,7 @@
 
 namespace Modules\Event\Console;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use Modules\Event\Emails\EventEmail;
@@ -42,14 +43,27 @@ class EmailCommand extends Command
      */
     public function handle()
     {
-        // $events = Event::all();
+        $events = Event::all();
 
-        // if ($events->event_time )
+        $currentDay = date('Y-m-d H:i');
+        
+        foreach ($events as $event) {
+            
+            $eventTime = Carbon::createFromFormat('d/m/Y H:i', $event->event_time)->format('Y-m-d H:i');
 
+            $difference = date_diff(date_create($currentDay), date_create($eventTime));
+            $minutes = $difference->days * 24 * 60;
+            $minutes += $difference->h * 60;
+            $minutes += $difference->i;
 
+            if ($eventTime >= $currentDay && $minutes ==  10) {
 
-        // foreach ($events as $event) {
-        //     Mail::to($event->email)->send(new EventEmail($event));
-        // }
+                Mail::to($event->email_notification)->send(new EventEmail($event));
+                
+                $event->sent = true;
+                $event->sent_time = $currentDay;  
+                $event->save();
+            }
+        }
     }
 }
