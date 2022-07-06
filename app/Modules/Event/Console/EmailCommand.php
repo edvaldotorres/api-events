@@ -58,7 +58,7 @@ class EmailCommand extends Command
 
             if ($eventTime >= $currentDay && $minutes ==  10) {
 
-                Mail::to($event->email_notification)->send(new EventEmail($event));
+                Mail::to($event->email_notification)->queue(new EventEmail($event));
                 
                 $event->sent = true;
                 $event->sent_time = $currentDay;  
