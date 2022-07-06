@@ -64,7 +64,7 @@ docker exec -it app php artisan horizon
 8. Start cron.
 
 ```sh
-ocker exec -it app php artisan event:email  
+docker exec -it app php artisan event:email  
 ```
 
 NOTE: Configure mailtrap in env file.
