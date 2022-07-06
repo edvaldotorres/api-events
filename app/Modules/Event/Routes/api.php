@@ -14,6 +14,10 @@ use Modules\Event\Http\Controllers\Api\EventController;
 |
 */
 
+Route::get('/', function () {
+    return response()->json(['messenge' => 'Bem-vindo a API de Eventos']);
+});
+
 Route::get('events', [EventController::class, 'index']);
 Route::post('events', [EventController::class, 'store']);
 Route::put('events/{id}', [EventController::class, 'update']);
